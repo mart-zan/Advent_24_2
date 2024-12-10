@@ -27,15 +27,9 @@ if __name__ == '__main__':
         # report from string to numbers
         report = report.strip().split(' ')
         report = list(map(int, report))  # ineteger from string
-        # print(report)
-        # Keep safe through conditions
-        # safe = True
         # Make difference to check plus/minus (ascend/descend)
         diffs_report = [report[j + 1] - report[j] for j in range(len(report)-1)]
-        # diffs_report_abs = res = [abs(ele) for ele in test_list]
-        # print(diffs_report)
-        # safe_sign =
-        # print(safe_sign)
+        # Check all conditions
         if all_same_sign(diffs_report):
             if all(np.abs(y) < 4 for y in diffs_report):
                 save_reports = save_reports + 1

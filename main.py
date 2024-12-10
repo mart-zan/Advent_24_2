@@ -10,13 +10,20 @@ def read_reports(filename: str):
     return rows
 
 def all_same_sign(list_numbers):
-    # Check if all numbers are plus or minus.
+    # Check if all numbers are plus or minus. If they are all same, returns true value.
+    # If there is a zero, return false. If there is at least one different sign, returns false.
     if all(col > 0 for col in list_numbers):
         return True
     elif all(col < 0 for col in list_numbers):
         return True
     else:
         return False
+
+def problem_dampener(list_numbers):
+    # Takes report and creates a dampened report without one mistaken number (that does not fall to the consitions).
+    if any(col == 0 for col in report):
+        where_zero = list_numbers.item(0)
+        report.remove(where_zero[0])
 
 
 if __name__ == '__main__':
@@ -26,7 +33,9 @@ if __name__ == '__main__':
     for i, report in enumerate(reports):
         # report from string to numbers
         report = report.strip().split(' ')
-        report = list(map(int, report))  # ineteger from string
+        report = list(map(int, report))  # integer from string
+        # Create dampened report for second task
+
         # Make difference to check plus/minus (ascend/descend)
         diffs_report = [report[j + 1] - report[j] for j in range(len(report)-1)]
         # Check all conditions

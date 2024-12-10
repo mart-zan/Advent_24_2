@@ -1,16 +1,26 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Advent of code
+# --- Day 2: Red-Nosed Reports ---
+def read_reports(filename: str):
+    my_file = open(filename, "r")
+    data = my_file.read()
+    rows = data.strip().split('\n')  # Split text into each row
+    my_file.close()
+    # Returns
+    return rows
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # Read and close file
+    reports = read_reports("input.txt")
+    print(reports)
+    for i, report in enumerate(reports):
+        # report from string to numbers
+        report = report.strip().split(' ')
+        report = list(map(int, report))  # ineteger from string
+        print(report)
+        # Keep safe through conditions
+        safe = True
+        # Make difference to check plus/minus (ascend/descend)
+        diffs_report = res = [report[j + 1] - report[j] for j in range(len(report)-1)]
+        print(diffs_report)

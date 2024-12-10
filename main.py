@@ -1,4 +1,4 @@
-
+import numpy as np
 # Advent of code
 # --- Day 2: Red-Nosed Reports ---
 def read_reports(filename: str):
@@ -10,6 +10,7 @@ def read_reports(filename: str):
     return rows
 
 def all_same_sign(list_numbers):
+    # Check if all numbers are plus or minus.
     if all(col > 0 for col in list_numbers):
         return True
     elif all(col < 0 for col in list_numbers):
@@ -30,14 +31,13 @@ if __name__ == '__main__':
         # Keep safe through conditions
         # safe = True
         # Make difference to check plus/minus (ascend/descend)
-        diffs_report = res = [report[j + 1] - report[j] for j in range(len(report)-1)]
+        diffs_report = [report[j + 1] - report[j] for j in range(len(report)-1)]
+        # diffs_report_abs = res = [abs(ele) for ele in test_list]
         # print(diffs_report)
         # safe_sign =
         # print(safe_sign)
         if all_same_sign(diffs_report):
-            if any(y > 3 for y in diffs_report):
-                if (all(y != 0 for y in diffs_report)):
-                    save_reports = save_reports + 1
-
+            if all(np.abs(y) < 4 for y in diffs_report):
+                save_reports = save_reports + 1
 
     print('In unusual data from the Red-Nosed reactor is ' + str(save_reports) + ' save reports.')

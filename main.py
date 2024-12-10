@@ -1,7 +1,9 @@
 import numpy as np
+
 # Advent of code
 # --- Day 2: Red-Nosed Reports ---
 def read_reports(filename: str):
+
     my_file = open(filename, "r")
     data = my_file.read()
     rows = data.strip().split('\n')  # Split text into each row
@@ -10,37 +12,55 @@ def read_reports(filename: str):
     return rows
 
 def all_same_sign(list_numbers):
-    # Check if all numbers are plus or minus. If they are all same, returns true value.
-    # If there is a zero, return false. If there is at least one different sign, returns false.
+    """
+    Check if all numbers are plus or minus. If they are all same, returns true value.
+    If there is a zero, return false. If there is at least one different sign, returns false.
+    """
+
     if all(col > 0 for col in list_numbers):
-        return True
+        return 1
     elif all(col < 0 for col in list_numbers):
-        return True
+        return 1
     else:
-        return False
+        return 0
 
-def problem_dampener(list_numbers):
-    # Takes report and creates a dampened report without one mistaken number (that does not fall to the consitions).
-    if any(col == 0 for col in report):
-        where_zero = list_numbers.item(0)
-        report.remove(where_zero[0])
-
+def problem_dampener(x):
+    """
+    Checks if a report can become safe by removing one level.
+    """
+    n = len(x)
+    for i in range(n):
+        # Create a modified sequence by removing one level
+        modified_report = x[:i] + x[i+1:]
+        # Compute differences for the modified sequence
+        diffsx = [int(modified_report[j+1] - modified_report[j]) for j in range(len(modified_report) - 1)]
+        # Check if the modified report is safe
+        if (all_same_sign(diffsx)) and all(np.abs(y) < 4 for y in diffsx):
+            return 1
+    return 0
 
 if __name__ == '__main__':
     # Read and close file
     reports = read_reports("input.txt")
     save_reports = 0
+    save_reports_dumpened = 0
+
     for i, report in enumerate(reports):
+
         # report from string to numbers
         report = report.strip().split(' ')
         report = list(map(int, report))  # integer from string
-        # Create dampened report for second task
 
         # Make difference to check plus/minus (ascend/descend)
-        diffs_report = [report[j + 1] - report[j] for j in range(len(report)-1)]
-        # Check all conditions
-        if all_same_sign(diffs_report):
-            if all(np.abs(y) < 4 for y in diffs_report):
-                save_reports = save_reports + 1
+        diffs_report = [int(report[j + 1] - report[j]) for j in range(len(report)-1)]
 
-    print('In unusual data from the Red-Nosed reactor is ' + str(save_reports) + ' save reports.')
+        # Check all conditions for safe report
+        if (all_same_sign(diffs_report)) and all(np.abs(y) < 4 for y in diffs_report):
+            save_reports += 1
+            save_reports_dumpened += 1
+        else: # check the problem dampener
+            result_dump = problem_dampener(diffs_report)
+            save_reports_dumpened = save_reports_dumpened + result_dump
+
+    print('In unusual data from the Red-Nosed reactor is ' + str(save_reports) + ' safe reports.')
+    print('With problem dampener there are ' + str(save_reports_dumpened) + ' safe reports.')

@@ -59,7 +59,7 @@ if __name__ == '__main__':
             save_reports += 1
             save_reports_dumpened += 1
         else: # check the problem dampener
-            result_dump = problem_dampener(diffs_report)
+            result_dump = problem_dampener(report)
             save_reports_dumpened = save_reports_dumpened + result_dump
 
     print('In unusual data from the Red-Nosed reactor is ' + str(save_reports) + ' safe reports.')
